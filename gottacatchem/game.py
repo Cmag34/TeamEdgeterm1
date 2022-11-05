@@ -2,6 +2,7 @@ from sense_hat import SenseHat
 from time import sleep
 import random
 from player import Player
+from berry import Berry
 sense= SenseHat()
 
 class Game:
@@ -11,7 +12,7 @@ class Game:
         self.score = 0
         self.game_over=False
         self.speed = .5
-        self.berries : self.berries = []
+        self.berries= Berry((255,255,255), .7,10)
         self.player = Player(56,63,sense)
 
 
@@ -22,6 +23,8 @@ class Game:
         self.start()
         self.player.display(0)
         while not self.game_over:
+            self.berries.drop()
+
             for event in sense.stick.get_events():
                 if event.action == "pressed" and event.direction == "left":
                     print("left")
